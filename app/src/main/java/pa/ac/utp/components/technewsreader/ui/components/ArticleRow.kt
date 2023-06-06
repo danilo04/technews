@@ -19,11 +19,11 @@ import pa.ac.utp.components.technewsreader.data.dtos.SubmittedUser
 import pa.ac.utp.components.technewsreader.ui.theme.LocalPaddings
 
 @Composable
-fun ArticleRow(article: ArticleDto) {
-    Column(modifier = Modifier.clickable { /* event */ }) {
+fun ArticleRow(article: ArticleDto, onClick: (ArticleDto) -> Unit) {
+    Column(modifier = Modifier.clickable { onClick(article) }) {
         Column(
             modifier = Modifier.padding(
-                horizontal = LocalPaddings.current.defaultPadding,
+                horizontal = LocalPaddings.current.mediumPadding,
                 vertical = LocalPaddings.current.smallPadding
             )
         ) {
@@ -53,7 +53,7 @@ fun ArticleRow(article: ArticleDto) {
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(0.5.dp)
+                .height(1.dp)
                 .background(MaterialTheme.colorScheme.secondary)
         )
     }
@@ -79,5 +79,5 @@ fun ArticleRowPreview() {
         submittedUser = SubmittedUser(username = "sebastien")
     )
     
-    ArticleRow(article = article)
+    ArticleRow(article = article, onClick = {})
 }

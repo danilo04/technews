@@ -14,7 +14,8 @@ data class ArticleDto(
     @field:Json(name = "short_id_url") val shortIdUrl: String,
     @field:Json(name = "url") val url: String,
     @field:Json(name = "comments_url") val commentsUrl: String,
-    @field:Json(name = "submitter_user") val submittedUser: SubmittedUser
+    @field:Json(name = "submitter_user") val submittedUser: SubmittedUser,
+    @field:Json(name = "comments") val comments: List<CommentDto>? = null
 )
 
 @JsonClass(generateAdapter = true)

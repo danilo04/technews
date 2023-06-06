@@ -27,17 +27,17 @@ import pa.ac.utp.components.technewsreader.ui.components.ArticleList
 import pa.ac.utp.components.technewsreader.ui.components.BottomBar
 import pa.ac.utp.components.technewsreader.ui.components.TopBar
 import pa.ac.utp.components.technewsreader.ui.viewmodels.ArticlesViewModel
+import pa.ac.utp.components.technewsreader.ui.viewmodels.NewsViewModel
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Composable
-fun MainScreen(
+fun NewsScreen(
     navHostController: NavHostController
 ) {
-    val viewModel = hiltViewModel<ArticlesViewModel>()
-    val uiState = viewModel.uiState.collectAsState()
+    val viewModel = hiltViewModel<NewsViewModel>()
     Scaffold(
         topBar = {
             TopBar()
@@ -51,30 +51,7 @@ fun MainScreen(
         Box(
             modifier = Modifier.padding(contentPadding)
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                when (val state = uiState.value) {
-                    is ArticlesUiState.Articles -> {
-                        ArticleList(articles = state.articles) {
-                            val commentsUrlEncode = URLEncoder.encode(it.commentsUrl, StandardCharsets.UTF_8.toString())
-                            navHostController.navigate("comments/$commentsUrlEncode")
-                        }
-                    }
 
-                    ArticlesUiState.Loading -> {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .padding(vertical = 5.dp)
-                                .size(24.dp),
-                            color = MaterialTheme.colorScheme.onBackground,
-                            strokeWidth = 2.dp
-                        )
-                    }
-                }
-            }
         }
     }
 }

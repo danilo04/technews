@@ -14,8 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import pa.ac.utp.components.technewsreader.data.dtos.ArticleDto
 import pa.ac.utp.components.technewsreader.data.dtos.SubmittedUser
 
+
+
 @Composable
-fun ArticleList(articles: List<ArticleDto>) {
+fun ArticleList(articles: List<ArticleDto>, onClick : (ArticleDto) -> Unit) {
     val listState = rememberLazyListState()
     if (articles.isEmpty()) {
         Column(
@@ -31,7 +33,7 @@ fun ArticleList(articles: List<ArticleDto>) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             itemsIndexed(items = articles) { _, article ->
-                ArticleRow(article = article)
+                ArticleRow(article = article, onClick = onClick)
             }
         }
     }
@@ -95,7 +97,7 @@ fun ArticleListPreview() {
         )
     )
 
-    ArticleList(articles = articles)
+    ArticleList(articles = articles, {})
 }
 
 @Preview(
@@ -104,5 +106,5 @@ fun ArticleListPreview() {
 )
 @Composable
 fun ArticleListEmptyPreview() {
-    ArticleList(articles = emptyList())
+    ArticleList(articles = emptyList(), {})
 }

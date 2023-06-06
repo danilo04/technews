@@ -10,8 +10,11 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 data class BottomNavItem(
     val name: String,
@@ -20,34 +23,33 @@ data class BottomNavItem(
 )
 
 @Composable
-fun BottomBar() {
+fun BottomBar(navController: NavHostController, onClick: (BottomNavItem) -> Unit) {
     val bottomNavItems = listOf(
         BottomNavItem(
-            name = "Hottest",
+            name = "Lobster",
             route = "hottest",
             icon = Icons.Rounded.Fireplace,
         ),
         BottomNavItem(
-            name = "Active",
-            route = "active",
+            name = "News",
+            route = "news",
             icon = Icons.Rounded.NotificationsActive,
-        ),
-        BottomNavItem(
-            name = "Recent",
-            route = "recent",
-            icon = Icons.Rounded.Newspaper,
         ),
     )
 
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.primary,
     ) {
         bottomNavItems.forEachIndexed{ index, item ->
-            val selected = index == 0
+            val selected = item.route == currentRoute
 
             NavigationBarItem(
                 selected = selected,
-                onClick = {  },
+                onClick = {
+                    onClick(item)
+                },
                 label = {
                     Text(
                         text = item.name,
@@ -64,4 +66,3 @@ fun BottomBar() {
         }
     }
 }
-

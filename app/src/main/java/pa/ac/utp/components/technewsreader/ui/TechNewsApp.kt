@@ -5,6 +5,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import pa.ac.utp.components.technewsreader.ui.screens.MainScreen
 
 @ExperimentalMaterialApi
@@ -12,6 +13,7 @@ import pa.ac.utp.components.technewsreader.ui.screens.MainScreen
 @Composable
 fun TechNewsApp() {
     Surface(tonalElevation = 5.dp) {
-        MainScreen()
+        val navController = rememberNavController()
+        TechNewsNavHost(navController = navController)
     }
 }
